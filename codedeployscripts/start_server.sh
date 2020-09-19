@@ -1,5 +1,4 @@
 #!/bin/bash
 cd /var/www/html/mslearning/
 ls -l
-nohup ./Tailspin.SpaceGame.Web &
-exit 0
+./Tailspin.SpaceGame.Web > /dev/null 2> /dev/null < /dev/null &
