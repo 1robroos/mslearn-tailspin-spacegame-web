@@ -1,4 +1,4 @@
 #!/bin/bash
-cd /var/www/html/mslearning/Release
+cd /var/www/html/mslearning/
 ls -l
 ./Tailspin.SpaceGame.Web
