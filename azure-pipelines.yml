@@ -93,7 +93,7 @@ steps:
    echo result
    ls -l $(Build.ArtifactStagingDirectory)/Release
    exit 0   
-  displayName: 'Command Line Script Copy appspec.yml to Build.ArtifactStagingDirectory'
+  displayName: 'Some ls commands'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
@@ -112,9 +112,4 @@ steps:
    echo "var $(System.DefaultWorkingDirectory)"
    ls -ltR  $(System.DefaultWorkingDirectory)
    exit 0   
-  displayName: 'Command Line Script'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    ArtifactName: 'dropit'
+  displayName: 'Again some ls commands'
