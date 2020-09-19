@@ -1,3 +1,4 @@
 #!/bin/bash
 cd /var/www/html/mslearning
-dotnet run --project Tailspin.SpaceGame.Web
+ls -l
+./Tailspin.SpaceGame.Web
