@@ -49,3 +49,32 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
+
+- script: |
+   echo "var Build.StagingDirectory = $(Build.StagingDirectory)"
+   ls -ltR $(Build.StagingDirectory)
+   echo
+   echo "$(Build.BinariesDirectory) contains ( is var Build.BinariesDirectory ) :"
+   ls -ltR $(Build.BinariesDirectory)
+   echo "$(Build.ArtifactStagingDirectory) is var Build.ArtifactStagingDirectory and contains:"
+   ls -ltR $(Build.ArtifactStagingDirectory)
+   echo
+   echo "in the release the unzip function of Peter will unzip it in to var System.DefaultWorkingDirectory"
+   echo "var $(System.DefaultWorkingDirectory)"
+   ls -ltR  $(System.DefaultWorkingDirectory)
+   exit 0   
+  displayName: 'Command Line Script'
+
+  - task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    ArtifactName: 'dropit'
