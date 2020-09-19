@@ -1,3 +1,3 @@
 #!/bin/bash
-ls -l
-unzip Release/Tailspin.SpaceGame.Web.zip
+ls -ltR  /var/www/html/mslearning
+unzip /var/www/html/mslearning/Release/Tailspin.SpaceGame.Web.zip
