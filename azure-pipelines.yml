@@ -46,6 +46,25 @@ steps:
   parameters:
     buildConfiguration: 'Release'
 
+- script: |
+   echo "var Build.StagingDirectory = $(Build.StagingDirectory)"
+   ls -ltR $(Build.StagingDirectory)
+   echo
+   echo "var Build.ArtifactStagingDirectory = $(Build.ArtifactStagingDirectory)"
+   ls -ltR $(Build.StagingDirectory)
+   echo
+   echo "var System.DefaultWorkingDirectory = $(System.DefaultWorkingDirectory)"
+   ls -l $(System.DefaultWorkingDirectory)
+   echo
+   echo "Copy codedeploy files to Build.ArtifactStagingDirectory in Release subdir"
+   cp $(System.DefaultWorkingDirectory)appspec.yml $(Build.ArtifactStagingDirectory)/Release
+   cp -r $(System.DefaultWorkingDirectory)codedeploy $(Build.ArtifactStagingDirectory)/Release
+
+   echo result
+   ls -l $(Build.ArtifactStagingDirectory)/Release
+   exit 0   
+  displayName: 'Command Line Script Copy appspec.yml to Build.ArtifactStagingDirectory'
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
