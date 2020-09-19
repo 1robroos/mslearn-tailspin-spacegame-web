@@ -4,7 +4,7 @@ files:
   - source: /
     destination: /var/www/html/mslearning
 hooks:
-  BeforeInstall:
+  AfterInstall:
     - location: codedeployscripts/UnzipResourceBundle.sh
   ApplicationStart:
     - location: codedeployscripts/start_server.sh
