@@ -79,7 +79,7 @@ steps:
    cp -r $(System.DefaultWorkingDirectory)/codedeployscripts $(Build.ArtifactStagingDirectory)/Release
    echo
    echo try to copy buildid.zip into $(Build.ArtifactStagingDirectory)/Release
-   cp $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip 
+   cp $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip $(Build.ArtifactStagingDirectory)/Release
 
    echo result
    ls -l $(Build.ArtifactStagingDirectory)/Release
