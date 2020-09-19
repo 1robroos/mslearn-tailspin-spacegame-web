@@ -46,6 +46,24 @@ steps:
   parameters:
     buildConfiguration: 'Release'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/codedeployscripts'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/appspec.yml'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
+
 - script: |
    echo "var Build.StagingDirectory = $(Build.StagingDirectory)"
    ls -ltR $(Build.StagingDirectory)
@@ -58,7 +76,10 @@ steps:
    echo
    echo "Copy codedeploy files to Build.ArtifactStagingDirectory in Release subdir"
    cp $(System.DefaultWorkingDirectory)/appspec.yml $(Build.ArtifactStagingDirectory)/Release
-   cp -r $(System.DefaultWorkingDirectory)/codedeploy $(Build.ArtifactStagingDirectory)/Release
+   cp -r $(System.DefaultWorkingDirectory)/codedeployscripts $(Build.ArtifactStagingDirectory)/Release
+   echo
+   echo try to copy buildid.zip into $(Build.ArtifactStagingDirectory)/Release
+   cp $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip 
 
    echo result
    ls -l $(Build.ArtifactStagingDirectory)/Release
@@ -83,15 +104,6 @@ steps:
    ls -ltR  $(System.DefaultWorkingDirectory)
    exit 0   
   displayName: 'Command Line Script'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-    verbose: true
 
 - task: PublishBuildArtifacts@1
   inputs:
